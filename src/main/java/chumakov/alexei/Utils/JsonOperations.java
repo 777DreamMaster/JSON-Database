@@ -1,4 +1,4 @@
-package Utils;
+package chumakov.alexei.Utils;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;

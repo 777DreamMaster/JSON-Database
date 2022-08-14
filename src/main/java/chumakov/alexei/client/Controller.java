@@ -1,4 +1,4 @@
-package client;
+package chumakov.alexei.client;
 
 import com.google.gson.JsonObject;
 
@@ -16,7 +16,8 @@ public class Controller {
     private static final String ADDRESS = "127.0.0.1";
 
     private static final String PATH_TO_SCRIPTS_TEST = "src/client/data/";
-    private static final String PATH_TO_SCRIPTS_LOCAL = System.getProperty("user.dir") + "/JSON Database/task/src/client/data/";
+//    private static final String PATH_TO_SCRIPTS_LOCAL = System.getProperty("user.dir") + "/JSON Database/task/src/client/data/";
+    private static final String PATH_TO_SCRIPTS_LOCAL = System.getProperty("user.dir") + "/src/main/java/chumakov/alexei/client/data/";
 
     public static void connect(Args request) {
         try (
@@ -33,13 +34,14 @@ public class Controller {
             System.out.printf("Received: %s", receivedMsg);
         } catch (IOException e) {
             System.out.println("Client error");
+            e.printStackTrace();
         }
     }
 
     private static String createJson(Args request) {
         if (request.getFileName() != null) {
             try {
-                return new String(Files.readAllBytes(Path.of(PATH_TO_SCRIPTS_TEST + request.getFileName())));
+                return new String(Files.readAllBytes(Path.of(PATH_TO_SCRIPTS_LOCAL + request.getFileName())));
             } catch (IOException e) {
                 return "Client error1";
             }

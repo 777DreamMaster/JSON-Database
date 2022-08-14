@@ -1,6 +1,6 @@
-package server;
+package chumakov.alexei.server;
 
-import Utils.JsonConverter;
+import chumakov.alexei.Utils.JsonConverter;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -20,18 +20,13 @@ public class Controller {
 
 
     public static String process(JsonObject request) {
-        switch (request.get("type").getAsString()) {
-            case "get":
-                return getJsonResponse(database.get(request.get("key")));
-            case "set":
-                return getJsonResponse(database.set(request.get("key"), request.get("value")));
-            case "delete":
-                return getJsonResponse(database.delete(request.get("key")));
-            case "exit":
-                return getJsonResponse(true);
-            default:
-                return getJsonResponse(false);
-        }
+        return switch (request.get("type").getAsString()) {
+            case "get" -> getJsonResponse(database.get(request.get("key")));
+            case "set" -> getJsonResponse(database.set(request.get("key"), request.get("value")));
+            case "delete" -> getJsonResponse(database.delete(request.get("key")));
+            case "exit" -> getJsonResponse(true);
+            default -> getJsonResponse(false);
+        };
     }
 
     public static void connect() {
@@ -48,6 +43,7 @@ public class Controller {
 
     static String getJsonResponse(String text) {
         JsonObject json = new JsonObject();
+        System.out.println(1);
         json.addProperty("response", Objects.equals(null, text) ? "ERROR" : "OK");
         if (json.get("response").getAsString().equals("ERROR")) {
             json.addProperty("reason", "No such key");

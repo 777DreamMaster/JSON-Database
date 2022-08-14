@@ -1,4 +1,4 @@
-package Utils;
+package chumakov.alexei.Utils;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

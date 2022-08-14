@@ -1,4 +1,4 @@
-package client;
+package chumakov.alexei.client;
 
 import com.beust.jcommander.JCommander;
 

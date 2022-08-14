@@ -1,4 +1,4 @@
-package server;
+package chumakov.alexei.server;
 
 public interface Database<T> {
     boolean set(T index, T value);

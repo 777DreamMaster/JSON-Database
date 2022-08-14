@@ -1,4 +1,4 @@
-package server;
+package chumakov.alexei.server;
 
 public class Main {
 

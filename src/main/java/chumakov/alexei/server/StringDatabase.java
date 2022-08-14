@@ -1,11 +1,11 @@
-package server;
+package chumakov.alexei.server;
 
-import Utils.JsonOperations;
+import chumakov.alexei.Utils.JsonConverter;
+import chumakov.alexei.Utils.JsonOperations;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
-import Utils.JsonConverter;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -22,9 +22,9 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 public class StringDatabase implements Database<JsonElement> {
 
     private final Map<String, String> cells;
-    private static final String FILENAME_ENVIRONMENT_TEST = "/src/server/data/db.json";
-    private static final String FILENAME_ENVIRONMENT_LOCAL = System.getProperty("user.dir") + "/JSON Database/task/src/server/data/db.json";
-    private static final File DATABASE = new File(FILENAME_ENVIRONMENT_TEST);
+//    private static final String FILENAME_ENVIRONMENT_LOCAL = System.getProperty("user.dir") + "/JSON Database/task/src/server/data/db.json";
+    private static final String FILENAME_ENVIRONMENT_LOCAL = System.getProperty("user.dir") + "/src/main/java/chumakov/alexei/server/data/db.json";
+    private static final File DATABASE = new File(FILENAME_ENVIRONMENT_LOCAL);
     private static final ReadWriteLock lock = new ReentrantReadWriteLock();
     private static final Lock readLock = lock.readLock();
     private static final Lock writeLock = lock.writeLock();
@@ -35,9 +35,9 @@ public class StringDatabase implements Database<JsonElement> {
 
     public String get(JsonElement key) {
         loadDatabaseFromFile();
-
         List<String> list = List.of(key.toString().replaceAll("[\\[\\]\"]", "").split(","));
         JsonObject jsonObject = JsonParser.parseString(cells.get(list.get(0))).getAsJsonObject();
+        System.out.println(2);
         return JsonOperations.getValue(jsonObject, list.subList(1,list.size()));
     }
 
@@ -89,7 +89,7 @@ public class StringDatabase implements Database<JsonElement> {
         Map<String, String> cells;
         readLock.lock();
         try {
-            String data = new String(Files.readAllBytes(Path.of(FILENAME_ENVIRONMENT_TEST)));
+            String data = new String(Files.readAllBytes(Path.of(FILENAME_ENVIRONMENT_LOCAL)));
             if (!data.equals("")) {
                 cells = JsonConverter.getFromJSON(data, new TypeToken<HashMap<String, String>>(){}.getType());
             } else {
