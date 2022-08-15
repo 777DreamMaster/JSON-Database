@@ -9,7 +9,7 @@ import java.lang.reflect.Type;
 public class JsonConverter {
 
     private static final Gson gson = new GsonBuilder()
-//                                        .setPrettyPrinting() // Commented for tests passing
+                                        .setPrettyPrinting() // Commented for tests passing
                                         .create();
 
     public static <T> T getFromJSON(String json, Type type) {
