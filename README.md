@@ -11,7 +11,12 @@ There are available client arguments:
 - -in - read json with properties from file
 
 ## Example
-
+Starting the server:
+```
+> java Main
+Server started!
+```
+Starting the clients:
 ```
 > java Main -t set -k 1 -v "Hello world!" 
 Client started!
